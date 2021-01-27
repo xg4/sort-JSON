@@ -1,4 +1,7 @@
-export default function sort(value: any): any {
+function sort<T>(value: T): T;
+
+// deno-lint-ignore no-explicit-any
+function sort(value: any): any {
   if (Array.isArray(value)) {
     return value.sort().map(sort);
   }
@@ -15,3 +18,5 @@ export default function sort(value: any): any {
 
   return value;
 }
+
+export default sort;

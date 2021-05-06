@@ -12,7 +12,7 @@ function sort(value: any): any {
         .sort()
         .map((key) => {
           return [key, sort(value[key])];
-        })
+        }),
     );
   }
 

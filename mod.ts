@@ -1,19 +1,14 @@
 import sort from "./sort.ts";
-const { readFile, writeFile, args } = Deno;
+import { readJson, writeJson } from "./util.ts";
+
+const { args } = Deno;
 
 const path = args[0];
 
-const decoder = new TextDecoder();
-const encoder = new TextEncoder();
+const sourceData = await readJson(path);
 
-const sourceData = await readFile(path);
+const sortedData = JSON.stringify(sort(sourceData), null, 2);
 
-const jsonData = decoder.decode(sourceData);
-
-const parseData = JSON.parse(jsonData);
-
-const result = JSON.stringify(sort(parseData), null, 2);
-
-await writeFile(path, encoder.encode(result));
+await writeJson(path, sortedData);
 
 console.log(`🚀 ${path} is sorted!`);
